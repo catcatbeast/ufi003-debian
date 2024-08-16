@@ -29,6 +29,9 @@ mount --bind /dev debian/dev
 mount --bind /dev/pts debian/dev/pts
 mount --bind /sys debian/sys
 LANG=C LANGUAGE=C LC_ALL=C chroot debian /tmp/chroot.sh
+# Enable BBR in the chroot environment
+echo "net.ipv4.tcp_congestion_control=bbr" >> debian/etc/sysctl.conf
+echo "net.core.default_qdisc=fq" >> debian/etc/sysctl.conf
 umount debian/proc
 umount debian/dev/pts
 umount debian/dev
